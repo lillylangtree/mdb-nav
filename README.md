@@ -23,5 +23,5 @@ cd to mdb-nav folder, the git clone creates this folder for you
 
 3/ Home page should appear
 
-If you don't have npm installed you can still run the application just
-copy the main folder to where your files get served from locally
+If you don't have npm installed you can still run the application.
+Just copy the main folder to where your files get served from locally

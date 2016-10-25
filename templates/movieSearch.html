@@ -1,0 +1,16 @@
+ <section class='container'>
+	<div class='jumbotron' ng-show='loading'><h1>Loading.....</h1></div>
+	<h1>{{title}} </h1>
+	<section class='row'>
+		<div class='repeat' ng-repeat="movie in movieList">
+			<div class="col-md-2 col-sm-4 col-xs-6">
+				<a href='#/movie/{{movie.imdbID}}/{{category}}'>    
+					<movie-info-box title="movie.Title" 
+                                    poster='movie.Poster' 
+                                    date='movie.Year'>
+                	</movie-info-box>
+				</a>
+			</div>
+		</div>
+	</section>
+</section>

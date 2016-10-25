@@ -3,18 +3,116 @@
   <head>
       <title>Angular Movies DB Project</title>
 	<link href="css/vendor/bootstrap.min.css" rel="stylesheet">
-	
+  <link href="css/style.css" rel="stylesheet">
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
   <script src="javascript/vendor/angular.min.js"></script>
   <script src="javascript/vendor/angular-route.min.js"></script>
+  <script src="javascript/vendor/angular-sanitize.min.js"></script>
   <script src="javascript/vendor/jquery-1.11.3.min.js"></script>
   <script src="javascript/vendor/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body class='movie_bgd'>
+
+  <nav class="navbar navbar-inverse" ng-controller='MenuController'>   
+    <div class='container' >
+        <div class="nav navbar-header">
+          <a class="navbar-brand" href="#/">MoviesDB</a>
+          <button type="button" class="navbar-toggle" 
+            data-toggle="collapse" 
+            data-target="#myCollapsingList">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myCollapsingList" >
+          <ul class="nav navbar-nav navbar-right">
+            <form name='movieForm' class="navbar-form navbar-left" role="search">
+                    <div id='searchBox' class="form-group">
+                        <input type="text" name='movie' ng-model='movie' class="form-control" placeholder="Search Movies">
+                        <span id='searchIcon' class="glyphicon glyphicon-search search-icon"></span>
+                    </div>
+                    <button type="submit" ng-click='movieSearch()' class="btn btn-danger">Go</button>
+            </form>
+            <li><a  href="#/about">About</a></li>
+
+            <li class="dropdown">
+              <a  class="dropdown-toggle " data-toggle="dropdown" 
+                            role="button" 
+                            aria-haspopup="true" 
+                            aria-expanded="false">Movies <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href='#/movies/popular'>Popular</a></li>
+                <li><a href='#/movies/upcoming'>Upcoming</a></li>
+                <li><a href='#/movies/now_playing'>Now Playing</a></li>      
+                <li><a href='#/movies/top_rated'>Top Rated</a></li>
+                <li><a href='#/movies/search/Godfather'>Search</a></li>
+              </ul>
+            </li>
+            <form id='login' class="navbar-form navbar-left " ng-show='!loggedIn'>
+              <div class="form-group">
+                <input type="text" ng-model='user.email' class="form-control" placeholder="email">
+                <input type="password" ng-model='user.password' class="form-control" placeholder="password">
+              </div>
+              <button type="submit" ng-click= 'loginUser()' class="btn btn-primary">login</button>
+              <button type="submit" ng-click= 'registerModal()' class="btn btn-success">register</button>
+            </form>
+            <form class="navbar-form navbar-left loggedInForm" ng-show='loggedIn'>
+              <div class="form-group form-inline">
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#/favorites">{{ authUser.password.email }}</a></li>
+                  <li><a href="#/favorites">My Favorites</a></li>
+                </ul>
+              </div>
+              <button  type="submit" ng-click= 'logoutUser()' class="btn btn-danger btn-xs">logout</button>
+            </form>
+            
+            
+          </ul>
+      </div>
+    </div>
+    <section id="myModal" class="modal fade {{fadeIn}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">&times;</button>
+                <h1 class="modal-title">Registration</h4>
+                  <p>Please register with an email and password. Once registered you will be able to
+                     save your favourite movies. </p>
+            </div>
+            <div class="modal-body">
+              <div class='container-fluid'>
+                <div class="row">                   
+                   <div class="col-md-12">
+                    <form class="navbar-form navbar-left " ng-show='!loggedIn'>
+                      <div class="form-group">
+                        <input type="text" ng-model='registerUser.email' class="form-control" placeholder="email">
+                        <input type="password" ng-model='registerUser.password' class="form-control" placeholder="password">
+                      </div>
+                      <button type="submit" ng-click= 'registerUser()' class="btn btn-success">Register</button>
+                    </form>
+                    <div   ng-show='loggedIn'>
+                      <p>Registration for {{registerUser.email }} Successful !!</p>    
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="closeModal()">Close</button>               
+            </div>
+        </div>
+    </div>
+  </section>
+  </nav>
     <div ng-view>
     </div>
+    
   </body>
   <script src='javascript/app.js'></script>
   <script src='javascript/controller.js'></script>
   <script src='javascript/directive.js'></script>
   <script src='javascript/service.js'></script>
+  <script src='javascript/movieService.js'></script>
 </html>

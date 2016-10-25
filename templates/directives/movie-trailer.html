@@ -1,0 +1,22 @@
+<section id="myModal" class="modal fade {{fadeIn}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Movie Trailer</h4>
+            </div>
+            <div class="modal-body">
+              <div class='container-fluid'>
+                <div class="row">                   
+                   <div class="col-md-12">
+                  <iframe  src="{{trailerSrc}}" width="560" height='315' allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no" autoplay="false"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="closeModal()">Close</button>               
+            </div>
+        </div>
+    </div>
+</section>

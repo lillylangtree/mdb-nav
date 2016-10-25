@@ -1,0 +1,15 @@
+<div class='' style='position: relative'>   
+    <img class='img-thumbnail' src="https://maps.googleapis.com/maps/api/staticmap?center={{map.address}}&zoom={{map.zoom}}&size={{mapDimensions()}}&markers=color:red|{{map.address}}" 
+    class="img-responsive"/> 
+    <br>
+    <div style='position: absolute; top: 1em; left: 0.6em'>
+
+        <button style='padding: 4px 8px; opacity:0.8'
+        class="btn btn-primary" ng-click="zoomIn()">
+            <span class="glyphicon glyphicon-plus"></span></button>
+            
+        <button style='padding: 4px 8px; opacity:0.8'
+        class="btn btn-primary" ng-click="zoomOut()"> 
+            <span class="glyphicon glyphicon-minus"></span></button>
+    </div>
+</div>

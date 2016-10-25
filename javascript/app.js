@@ -1,27 +1,45 @@
 // defining the app module of the project
-angular.module('moviesDBApp', ['ngRoute','movieDBControllers','movieDBDirectives','movieDBServices'])
+// configure routing
+//
+angular.module('moviesDBApp', ['ngSanitize','ngRoute','movieDBControllers','TrailerMovieServices','utilityControllers','movieDBDirectives','movieDBServices','DBServices'])
 .constant("myMovieConfig", {
         "moviesEndpoint" : "https://api.themoviedb.org/3/movie",
-        "apiKey": "35e16679c616a21b9ddebb66272c5902"
+        "apiKey": "35e16679c616a21b9ddebb66272c5902",
+        "rottenUri" : "https://www.omdbapi.com/",
+        "posterPath": "http://image.tmdb.org/t/p/w370/",
+        "moviesSearchEndpoint": "https://www.omdbapi.com/",
+        "myDataRef" : 'https://moviesci.firebaseio.com/',
+        "noPoster" : "images/no-poster-w370-v2.png"
     })
 .config(function($routeProvider) {
 		 
 		$routeProvider
-		  .when('/popular', {
+		  .when('/', {
+		  	templateUrl: 'templates/home.html'		  	 
+		  })
+		  .when('/about', {
+		  	templateUrl: 'templates/about.html',
+		  	controller: 'AboutController'
+		  })
+		  .when('/favorites', {
+            templateUrl: 'templates/favorites.html',
+            controller: 'MovieFavoritesController'
+           })
+		  .when('/movies/:category', {
 		  	templateUrl: 'templates/movies.html',
 		  	controller: 'MovieListController'
 		  })
-		  .when('/upcoming', {
-		  	templateUrl: 'templates/movies.html',
-			controller: 'MovieUpcomingController'
+		  .when('/movie/:movieId/:category', {
+              templateUrl: 'templates/movieDetails.html',
+              controller: 'MovieDetailsController'
+          })
+          .when('/movies/search/:movieTitle', {
+              templateUrl: 'templates/movieSearch.html',
+              controller: 'MovieSearchController'
+          })
+		  .when('/movie/:movieId/:fromFavorites', {
+		  	templateUrl: 'templates/movieDetails.html',
+		  	controller: 'MovieDetailsController'
 		  })
-		  .when('/topRated', {
-		  	templateUrl: 'templates/movies.html',
-			controller: 'MovieTopRatedController'
-		  })
-		  .when("/nowPlaying", {
-			templateUrl: "templates/movies.html",
-			controller: "MovieNowPlayingController"
-		})
 		  .otherwise({redirectTo: '/popular'}); 
 	});

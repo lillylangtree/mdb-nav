@@ -1,0 +1,25 @@
+<section class='container-fluid'>
+    <!--<movie-nav current-nav='currentNav'></movie-nav> -->
+    <section class='row'>
+        <div class='col-md-offset-2 col-md-8 col-sm-8'>
+            <div ng-show='loading'><h1>Loading.....</h1></div>
+            <h3>{{title}} </h3><hr/>
+        </div>
+    </section>
+
+    <section class='row'>
+        <div class="col-md-offset-2 col-md-8 col-sm-8 ">
+            <table>
+                <tr><th>Title</th><th>Released</th></tr>
+                <tr ng-repeat="movie in movieList">
+                    <td>{{movie.Title}}</td><td>{{movie.Year | date: 'mediumDate'}}</td>
+                    <td><a href='#/movie/{{movie.imdbID}}/true' class="btn btn-primary">
+                        Details
+                    </a></td>
+                    <td> <button class='btn btn-danger' ng-click="deleteFavorite(movie)" >Remove</button></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+</section>

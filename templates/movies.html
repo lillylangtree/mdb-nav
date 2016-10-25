@@ -1,15 +1,26 @@
-<div class='container'>
+ <section class='container'>
 	<div class='jumbotron' ng-show='loading'><h1>Loading.....</h1></div>
 	<h1>{{title}} </h1>
-	<div class='row'>
-		<div ng-repeat="movie in movieList">
-			<div class="panel panel-default" >
-				<img class='img-responsive' ng-src="http://image.tmdb.org/t/p/w370/{{movie.poster_path}}" style="">
-				<div class="panel-heading">
-					<h3 class="panel-title" >{{movie.title}}</h3>
-				</div >
-				<div class="panel-footer" >From: {{movie.release_date | date: 'mediumDate'}}</div>
+	<section class='row'>
+		<div class='repeat' ng-repeat="movie in movieList">
+			<div class="col-md-2 col-sm-4 col-xs-6">
+				<a href='#/movie/{{movie.id}}/{{category}}'>    
+					<movie-info-box title="movie.title" 
+                                    poster='movie.poster_path'
+                                    date='movie.release_date'>
+                	</movie-info-box>
+				</a>
 			</div>
 		</div>
-	</div>
-</div>
+	</section>
+	 <div class='nextPrev' style='padding: 1em;'>
+        <i class='glyphicon glyphicon-circle-arrow-left'
+            ng-hide="page === 1"
+            ng-click="prevPage()"></i>
+        
+        <span class='pagination'>
+        Showing Page: {{page}} of {{pages}}</span>
+        <i class='glyphicon glyphicon-circle-arrow-right'
+           ng-click="nextPage()"></i>
+    </div>
+</section>

@@ -1,0 +1,57 @@
+<div class='container'>
+    <h1>{{title}}</h1>
+    <div class='row'>          
+      <div class="col-md-3">
+        <img ng-src="http://image.tmdb.org/t/p/w370/{{movie.poster_path}}" class='img-responsive'>
+         <br/>
+          <a href="#/movies/{{category}}"><button class="btn btn-primary">Return Movies</button></a>
+         <button class='btn btn-danger' ng-model='trailer' ng-click="showTrailer()" ng-show='trailer'>Show Trailer</button>
+         
+      </div>
+      <div  class="col-md-7">
+        <h1 class="">{{movie.title}}</h1>
+        <p> Vote Average: {{ movie.vote_average}} ({{movie.vote_count}}) / IMdb Rating: {{rotten.imdbRating * 10}}%</p>
+        <p>{{movie.overview}}</p>
+        <section class='row'>
+          <div class='col-md-6'>
+              <h3>Tag Line</h3>
+              <p>{{movie.tagline}}</p>
+          </div>
+          <div class='col-md-6'>
+            <h3> Awards</h3>
+            <p>{{ rotten.Awards }}</p>
+          </div>
+        </section>
+        <section class='row'>
+          <div class='col-md-9'>
+            <p>Released: {{movie.release_date | date: 'mediumDate'}}  </p>
+          </div>
+          <div class='col-md-3'>
+            <button class='btn btn-success'  ng-show='showFav' ng-click="addFavourite()" >Add Favourite</button>
+          </div>          
+        </section>
+        <section id='rotten' class='row'>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <h3>Rotten Results</h3>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <p style='font-size: large'>TomatoMeter: {{rotten.tomatoMeter}}%</p>
+            <p>Average Rating: {{rotten.tomatoRating}}</p>
+            <p>Fresh: {{rotten.tomatoFresh}} / Rotten: {{rotten.tomatoRotten}}</p>
+            <p>Reviews: {{rotten.tomatoReviews}}</p>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <p style='font-size: large'>Critics Consensus</p>            
+            <p>{{rotten.tomatoConsensus}}</p>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <p style='font-size: large'>Audience Score: {{rotten.tomatoUserMeter}}%</p>
+            <p>Average Rating: {{rotten.tomatoUserRating}}/5</p>
+            <p>Reviews: {{rotten.tomatoUserReviews}}</p>
+          </div>
+        </section>
+      </div> 
+    </div>
+    
+</div>
+<movie-trailer trailer-src="trailerSrc" fade-in="fadeIn"><movie-trailer>
