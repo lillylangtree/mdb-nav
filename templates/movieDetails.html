@@ -10,17 +10,17 @@
       </div>
       <div  class="col-md-7">
         <h1 class="">{{movie.title}}</h1>
-        <p> Vote Average: {{ movie.vote_average}} ({{movie.vote_count}}) / IMdb Rating: {{rotten.imdbRating * 10}}%</p>
+        <p> Vote Average: {{ movie.vote_average}} ({{movie.vote_count}}) </p>
         <p>{{movie.overview}}</p>
         <section class='row'>
           <div class='col-md-6'>
               <h3>Tag Line</h3>
               <p>{{movie.tagline}}</p>
           </div>
-          <div class='col-md-6'>
+        <!--  <div class='col-md-6'>
             <h3> Awards</h3>
             <p>{{ rotten.Awards }}</p>
-          </div>
+          </div> -->
         </section>
         <section class='row'>
           <div class='col-md-9'>
@@ -30,7 +30,7 @@
             <button class='btn btn-success'  ng-show='showFav' ng-click="addFavourite()" >Add Favourite</button>
           </div>          
         </section>
-        <section id='rotten' class='row'>
+  <!--      <section id='rotten' class='row'>
           <div class="col-md-12 col-sm-12 col-xs-12">
             <h3>Rotten Results</h3>
           </div>
@@ -49,7 +49,7 @@
             <p>Average Rating: {{rotten.tomatoUserRating}}/5</p>
             <p>Reviews: {{rotten.tomatoUserReviews}}</p>
           </div>
-        </section>
+        </section> -->
       </div> 
     </div>
     

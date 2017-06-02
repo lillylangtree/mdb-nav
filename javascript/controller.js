@@ -116,35 +116,49 @@ angular.module('movieDBControllers',[])
             );
         }
     })
-.controller('MovieDetailsController',function($scope, $location, $routeParams,$sce, dbService, MovieListService,TrailerService, myMovieConfig,MovieModelService) {
+.controller('MovieDetailsController',function($scope, $location, $routeParams,$sce, dbService, MovieListService,NewTrailerService, myMovieConfig,MovieModelService) {
 // 
    $scope.title = 'Movie Details';
    $scope.trailer=false;
    var id = $routeParams.movieId;
    $scope.category = $routeParams.category;
+   if ($routeParams.searchMovie)
+	$scope.category = $routeParams.category + '/' +  $routeParams.searchMovie;
    var url = myMovieConfig.moviesEndpoint + '/' + id + '?api_key=' + myMovieConfig.apiKey;
    MovieListService.getList(url).then(
       function(result){
-            $scope.movie = result.data; 
-            url = myMovieConfig.rottenUri + '?i=' + $scope.movie.imdb_id + '&r=json&tomatoes=true';
-            return MovieListService.getList(url);//result sent to next .then                
-            }
+			$scope.movie = result.data; 
+            //url = myMovieConfig.rottenUri + '?i=' + $scope.movie.imdb_id + '&r=json&tomatoes=true';
+		    //url= myMovieConfig.movieDetailsEndPoint + $scope.movie.imdb_id + '&token=' + myMovieConfig.myapifilmstoken;
+			//return MovieListService.getList(url)
+			//result sent to next .then    
+			return $scope.movie.imdb_id;
+			}
       )
-      .then(
-        function(result){          
-          // returning results from previous then
-          $scope.rotten = result.data; //setting scope data for viewing
-          console.dir(result.data); 
-          TrailerService.get($scope.rotten.imdbID.slice(2),function(trailer) {
-              if (trailer.length > 0) {
-                console.log(trailer);
-                $scope.$apply(function () {
-                      $scope.trailer = true;
-                      $scope.trailerSrc = $sce.trustAsResourceUrl("https://v.traileraddict.com/" + trailer);
-                  });
-              }
-          }); //service requires callback
-      })
+     .then(  
+			//console.log("trailer wont work as not in server environment");
+			/*	function(imdbID){
+				 	var url = myMovieConfig.moviesTrailerEndPoint  + imdbID + '&token=' + myMovieConfig.myapifilmstoken;
+				 	NewTrailerService.getTrailer(url).then(function(result) {
+						if (result.data.error) 
+							$scope.trailer = false;
+						else {
+
+						var trailer_id = result.data.data.trailer[0].trailer_id;
+				 		if (trailer_id.length > 0) {
+							console.log(trailer_id);
+							//$scope.$apply(function () {
+							$scope.trailer = true;
+							$scope.trailerSrc = $sce.trustAsResourceUrl("https://v.traileraddict.com/" + trailer_id);
+								//$scope.trailerSrc = $sce.trustAsResourceUrl(trailerSrc.data.trailer.src);
+							//});
+						}
+					    }
+					})
+				},
+                function (error) {
+                    $location.path('/error/' + error.data.status_message + '/' + error.status)
+                })*/)
       .catch(
         function(error) { $location.path('/error/'+error.data.status_message+'/'+error.status)
       });
@@ -228,21 +242,27 @@ $scope.nextPage = function(){
         $scope.loading = true;
         var search = $routeParams.movieTitle;
          
-        $scope.title = "Searched For Movies: '" + search + "'";
-        $scope.category = 'Search';
+        $scope.title = "Searching For Movies: '" + search + "'";
+        $scope.category = "search/" + $routeParams.movieTitle;
         getMovies(search);
 
         function getMovies(search) {
             var movies = search; // search string for searching movies, sent to url as parameter
             //construct url
-            var url = myMovieConfig.moviesSearchEndpoint + '?' + 's=' + movies ;
+           var url = myMovieConfig.moviesSearchEndpoint + movies + '&api_key=' +  
+						myMovieConfig.apiKey;
 
             MovieListService.getList(url).then(//retrieve movies for display
                 function (result) { //success, got data back from api call
                     if (!result.data.Error) {
-                        $scope.movieList = result.data.Search.filter(function (val) {
-                            return val.Poster !== 'N/A' //filter out invalid movies
-                        });
+                        $scope.movieList = result.data.results;
+						angular.forEach($scope.movieList,function(key,value) {
+							console.log(key,value);
+							if (key.poster_path == null)
+							  key.poster_path = myMovieConfig.noPoster;
+							else
+							  key.poster_path = myMovieConfig.posterPath + key.poster_path;
+						  });
                         $scope.loading = false;
                     }
                     else

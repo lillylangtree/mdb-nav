@@ -4,10 +4,10 @@
 	<section class='row'>
 		<div class='repeat' ng-repeat="movie in movieList">
 			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href='#/movie/{{movie.imdbID}}/{{category}}'>    
-					<movie-info-box title="movie.Title" 
-                                    poster='movie.Poster' 
-                                    date='movie.Year'>
+				<a href='#/movie/{{movie.id}}/{{category}}'>    
+					<movie-info-box title="movie.title" 
+                                    poster='movie.poster_path' 
+                                    date='movie.release_date'>
                 	</movie-info-box>
 				</a>
 			</div>

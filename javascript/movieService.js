@@ -1,12 +1,14 @@
 angular.module('TrailerMovieServices',[])
-.factory('NewTrailerService', ['$http',function($http){   
+.factory('NewTrailerService', ['$http',function($http){  
+	   
        return {
-           get: function(imdbId){
+           getTrailer: function(url){
                 //var urlSource = "http://api.traileraddict.com/?imdb=" + imdbId + "&callback=JSON_CALLBACK";
-                var urlSource = "https://www.myapifilms.com/taapi?" + imdbId + "&format=JSONP&callback=JSON_CALLBACK";
-                return $http.jsonp(urlSource);
-                }
-              }
+			    
+                //var urlSource = "https://www.myapifilms.com/taapi?" + imdbId + "&format=JSONP&callback=JSON_CALLBACK";
+                return $http.get(url);
+				}
+		}
     }])
 .factory('TrailerService', ['$http',function($http){   
        return {
