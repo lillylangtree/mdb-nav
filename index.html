@@ -47,8 +47,7 @@
                 <li><a href='#/movies/upcoming'>Upcoming</a></li>
                 <li><a href='#/movies/now_playing'>Now Playing</a></li>      
                 <li><a href='#/movies/top_rated'>Top Rated</a></li>
-                <li><a href='#/movies/search/Godfather'>Search</a></li>
-              </ul>
+			  </ul>
             </li>
             <form id='login' class="navbar-form navbar-left " ng-show='!loggedIn'>
               <div class="form-group">
@@ -61,8 +60,8 @@
             <form class="navbar-form navbar-left loggedInForm" ng-show='loggedIn'>
               <div class="form-group form-inline">
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#/favorites">{{ authUser.password.email }}</a></li>
-                  <li><a href="#/favorites">My Favorites</a></li>
+                  <li><a href="#/movies/favorites">{{ authUser.password.email }}</a></li>
+                  <li><a href="#/movies/favorites">My Favorites</a></li>
                 </ul>
               </div>
               <button  type="submit" ng-click= 'logoutUser()' class="btn btn-danger btn-xs">logout</button>

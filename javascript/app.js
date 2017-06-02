@@ -26,7 +26,7 @@ angular.module('moviesDBApp', ['ngSanitize','ngRoute','movieDBControllers','Trai
 		  	templateUrl: 'templates/about.html',
 		  	controller: 'AboutController'
 		  })
-		  .when('/favorites', {
+		  .when('/movies/favorites', {
             templateUrl: 'templates/favorites.html',
             controller: 'MovieFavoritesController'
            })
@@ -46,7 +46,7 @@ angular.module('moviesDBApp', ['ngSanitize','ngRoute','movieDBControllers','Trai
               templateUrl: 'templates/movieSearch.html',
               controller: 'MovieSearchController'
           })
-		  .when('/movie/:movieId/:fromFavorites', {
+		  .when('/movie/:movieId/:fromFavourites', {
 		  	templateUrl: 'templates/movieDetails.html',
 		  	controller: 'MovieDetailsController'
 		  })

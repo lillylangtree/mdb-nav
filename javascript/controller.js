@@ -122,6 +122,9 @@ angular.module('movieDBControllers',[])
    $scope.trailer=false;
    var id = $routeParams.movieId;
    $scope.category = $routeParams.category;
+   if ($routeParams.category == 'favorites') {
+	$scope.showFav = false;
+	}
    if ($routeParams.searchMovie)
 	$scope.category = $routeParams.category + '/' +  $routeParams.searchMovie;
    var url = myMovieConfig.moviesEndpoint + '/' + id + '?api_key=' + myMovieConfig.apiKey;
@@ -171,7 +174,7 @@ angular.module('movieDBControllers',[])
                     }
 
   $scope.authUser = dbService.getUser();
-   if ($scope.authUser) {
+   if ($scope.authUser && $scope.category != 'favorites') {
           $scope.showFav = true;
    } else {
           $scope.showFav = false;
